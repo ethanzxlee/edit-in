@@ -13,6 +13,11 @@
 		95B5E5F72150E974007AE2BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95B5E5F52150E974007AE2BD /* Main.storyboard */; };
 		95B5E6032150E974007AE2BD /* Edit_InTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B5E6022150E974007AE2BD /* Edit_InTests.swift */; };
 		95B5E60E2150E974007AE2BD /* Edit_InUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B5E60D2150E974007AE2BD /* Edit_InUITests.swift */; };
+		95B5E6222150E9C9007AE2BD /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B5E6212150E9C9007AE2BD /* PhotosUI.framework */; };
+		95B5E6242150E9C9007AE2BD /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95B5E6232150E9C9007AE2BD /* Photos.framework */; };
+		95B5E6272150E9C9007AE2BD /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B5E6262150E9C9007AE2BD /* PhotoEditingViewController.swift */; };
+		95B5E62A2150E9C9007AE2BD /* PhotoEditingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95B5E6282150E9C9007AE2BD /* PhotoEditingViewController.xib */; };
+		95B5E62F2150E9C9007AE2BD /* Edit In....appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 95B5E61F2150E9C9007AE2BD /* Edit In....appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +35,28 @@
 			remoteGlobalIDString = 95B5E5EB2150E973007AE2BD;
 			remoteInfo = "Edit In";
 		};
+		95B5E62D2150E9C9007AE2BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95B5E5E42150E973007AE2BD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95B5E61E2150E9C9007AE2BD;
+			remoteInfo = "Edit In...";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		95B5E6332150E9C9007AE2BD /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				95B5E62F2150E9C9007AE2BD /* Edit In....appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		95B5E5EC2150E973007AE2BD /* Edit In.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Edit In.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,6 +72,15 @@
 		95B5E6092150E974007AE2BD /* Edit InUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Edit InUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B5E60D2150E974007AE2BD /* Edit_InUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_InUITests.swift; sourceTree = "<group>"; };
 		95B5E60F2150E974007AE2BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95B5E61F2150E9C9007AE2BD /* Edit In....appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Edit In....appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		95B5E6212150E9C9007AE2BD /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		95B5E6232150E9C9007AE2BD /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		95B5E6262150E9C9007AE2BD /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
+		95B5E6292150E9C9007AE2BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PhotoEditingViewController.xib; sourceTree = "<group>"; };
+		95B5E62B2150E9C9007AE2BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95B5E62C2150E9C9007AE2BD /* Edit_In___.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Edit_In___.entitlements"; sourceTree = "<group>"; };
+		95B5E6342150E9EC007AE2BD /* Edit In.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Edit In.entitlements"; sourceTree = "<group>"; };
+		95B5E6352150EA04007AE2BD /* Edit In....entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Edit In....entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +105,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		95B5E61C2150E9C9007AE2BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95B5E6222150E9C9007AE2BD /* PhotosUI.framework in Frameworks */,
+				95B5E6242150E9C9007AE2BD /* Photos.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -79,6 +123,8 @@
 				95B5E5EE2150E973007AE2BD /* Edit In */,
 				95B5E6012150E974007AE2BD /* Edit InTests */,
 				95B5E60C2150E974007AE2BD /* Edit InUITests */,
+				95B5E6252150E9C9007AE2BD /* Edit In... */,
+				95B5E6202150E9C9007AE2BD /* Frameworks */,
 				95B5E5ED2150E973007AE2BD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,6 +135,7 @@
 				95B5E5EC2150E973007AE2BD /* Edit In.app */,
 				95B5E5FE2150E974007AE2BD /* Edit InTests.xctest */,
 				95B5E6092150E974007AE2BD /* Edit InUITests.xctest */,
+				95B5E61F2150E9C9007AE2BD /* Edit In....appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +143,7 @@
 		95B5E5EE2150E973007AE2BD /* Edit In */ = {
 			isa = PBXGroup;
 			children = (
+				95B5E6342150E9EC007AE2BD /* Edit In.entitlements */,
 				95B5E5EF2150E973007AE2BD /* AppDelegate.swift */,
 				95B5E5F12150E973007AE2BD /* ViewController.swift */,
 				95B5E5F32150E974007AE2BD /* Assets.xcassets */,
@@ -124,6 +172,27 @@
 			path = "Edit InUITests";
 			sourceTree = "<group>";
 		};
+		95B5E6202150E9C9007AE2BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				95B5E6212150E9C9007AE2BD /* PhotosUI.framework */,
+				95B5E6232150E9C9007AE2BD /* Photos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		95B5E6252150E9C9007AE2BD /* Edit In... */ = {
+			isa = PBXGroup;
+			children = (
+				95B5E6352150EA04007AE2BD /* Edit In....entitlements */,
+				95B5E6262150E9C9007AE2BD /* PhotoEditingViewController.swift */,
+				95B5E6282150E9C9007AE2BD /* PhotoEditingViewController.xib */,
+				95B5E62B2150E9C9007AE2BD /* Info.plist */,
+				95B5E62C2150E9C9007AE2BD /* Edit_In___.entitlements */,
+			);
+			path = "Edit In...";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -134,10 +203,12 @@
 				95B5E5E82150E973007AE2BD /* Sources */,
 				95B5E5E92150E973007AE2BD /* Frameworks */,
 				95B5E5EA2150E973007AE2BD /* Resources */,
+				95B5E6332150E9C9007AE2BD /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				95B5E62E2150E9C9007AE2BD /* PBXTargetDependency */,
 			);
 			name = "Edit In";
 			productName = "Edit In";
@@ -180,6 +251,23 @@
 			productReference = 95B5E6092150E974007AE2BD /* Edit InUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		95B5E61E2150E9C9007AE2BD /* Edit In... */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95B5E6302150E9C9007AE2BD /* Build configuration list for PBXNativeTarget "Edit In..." */;
+			buildPhases = (
+				95B5E61B2150E9C9007AE2BD /* Sources */,
+				95B5E61C2150E9C9007AE2BD /* Frameworks */,
+				95B5E61D2150E9C9007AE2BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Edit In...";
+			productName = "Edit In...";
+			productReference = 95B5E61F2150E9C9007AE2BD /* Edit In....appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -192,6 +280,11 @@
 				TargetAttributes = {
 					95B5E5EB2150E973007AE2BD = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					95B5E5FD2150E974007AE2BD = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -200,6 +293,14 @@
 					95B5E6082150E974007AE2BD = {
 						CreatedOnToolsVersion = 9.4.1;
 						TestTargetID = 95B5E5EB2150E973007AE2BD;
+					};
+					95B5E61E2150E9C9007AE2BD = {
+						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -219,6 +320,7 @@
 				95B5E5EB2150E973007AE2BD /* Edit In */,
 				95B5E5FD2150E974007AE2BD /* Edit InTests */,
 				95B5E6082150E974007AE2BD /* Edit InUITests */,
+				95B5E61E2150E9C9007AE2BD /* Edit In... */,
 			);
 		};
 /* End PBXProject section */
@@ -244,6 +346,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95B5E61D2150E9C9007AE2BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95B5E62A2150E9C9007AE2BD /* PhotoEditingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +385,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		95B5E61B2150E9C9007AE2BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95B5E6272150E9C9007AE2BD /* PhotoEditingViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -288,6 +406,11 @@
 			target = 95B5E5EB2150E973007AE2BD /* Edit In */;
 			targetProxy = 95B5E60A2150E974007AE2BD /* PBXContainerItemProxy */;
 		};
+		95B5E62E2150E9C9007AE2BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95B5E61E2150E9C9007AE2BD /* Edit In... */;
+			targetProxy = 95B5E62D2150E9C9007AE2BD /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -297,6 +420,14 @@
 				95B5E5F62150E974007AE2BD /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		95B5E6282150E9C9007AE2BD /* PhotoEditingViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				95B5E6292150E9C9007AE2BD /* Base */,
+			);
+			name = PhotoEditingViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -418,8 +549,9 @@
 		95B5E6132150E974007AE2BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Edit In/Edit_In.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Edit In/Edit In.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 469XEEBJ9N;
@@ -437,8 +569,9 @@
 		95B5E6142150E974007AE2BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Edit In/Edit_In.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Edit In/Edit In.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 469XEEBJ9N;
@@ -535,6 +668,44 @@
 			};
 			name = Release;
 		};
+		95B5E6312150E9C9007AE2BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Edit In.../Edit In....entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 469XEEBJ9N;
+				INFOPLIST_FILE = "Edit In.../Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-In.Edit-In---";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		95B5E6322150E9C9007AE2BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Edit In.../Edit In....entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 469XEEBJ9N;
+				INFOPLIST_FILE = "Edit In.../Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-In.Edit-In---";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -570,6 +741,15 @@
 			buildConfigurations = (
 				95B5E6192150E974007AE2BD /* Debug */,
 				95B5E61A2150E974007AE2BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		95B5E6302150E9C9007AE2BD /* Build configuration list for PBXNativeTarget "Edit In..." */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				95B5E6312150E9C9007AE2BD /* Debug */,
+				95B5E6322150E9C9007AE2BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
