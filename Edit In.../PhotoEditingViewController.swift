@@ -26,9 +26,16 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     // - Photoshop Location
     // - Cache Location
     //
-    
+    //first
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        let ud = UserDefaults.standard
+//        print(ud.dictionaryRepresentation())
+//        print("viewDidLoad()")
+
+        let ud = UserDefaults(suiteName: "group.app.zxlee.Edit-In")!
+        print(ud.object(forKey: "emotion"))
         
         // check if photoshop is installed
         // if not installed, show a notice
@@ -38,13 +45,17 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     }
 
     // MARK: - PHContentEditingController
-
+    //second
     func canHandle(_ adjustmentData: PHAdjustmentData) -> Bool {
+        print("canHandle()")
+        print("formatIdentidier: \(adjustmentData.formatIdentifier)")
+        print("formatVersion \(adjustmentData.formatIdentifier)")
         return adjustmentData.formatIdentifier == PhotoEditingViewController.adjustmentDataFormatIdentifier &&
             adjustmentData.formatVersion == PhotoEditingViewController.adjustmentDataFormatVersion
     }
-    
+    //third
     func startContentEditing(with contentEditingInput: PHContentEditingInput, placeholderImage: NSImage) {
+        print("startContentEditing()")
         input = contentEditingInput
     }
     

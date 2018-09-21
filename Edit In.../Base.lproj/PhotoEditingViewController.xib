@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="14019"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-        <capability name="the Touch Bar" minToolsVersion="8.1" minSystemVersion="10.12.2" requiredIntegratedClassName="NSTouchBar"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PhotoEditingViewController" customModule="Edit_In___" customModuleProvider="target">
@@ -118,60 +117,5 @@
             </subviews>
             <point key="canvasLocation" x="78.5" y="175"/>
         </customView>
-        <touchBar id="lCa-zc-k2T">
-            <touchBarItems>
-                <touchBarItem id="iJT-lP-Qm7">
-                    <viewController key="viewController" id="tHj-rP-3Qd">
-                        <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QP1-CN-Qam">
-                            <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tht-hK-wpu">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" usesAppearanceFont="YES"/>
-                            </buttonCell>
-                        </button>
-                    </viewController>
-                </touchBarItem>
-                <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="rUb-vB-mk3"/>
-                <touchBarItem id="eUu-I2-f79">
-                    <viewController key="viewController" id="umc-5K-Ncg">
-                        <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pcj-Lm-yE4">
-                            <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PME-q2-wfE">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" usesAppearanceFont="YES"/>
-                            </buttonCell>
-                        </button>
-                    </viewController>
-                </touchBarItem>
-                <touchBarItem id="R2f-cO-DP0">
-                    <viewController key="viewController" id="mR4-Ey-94B">
-                        <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ahm-4P-fZB">
-                            <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NKs-aI-Q1m">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" usesAppearanceFont="YES"/>
-                            </buttonCell>
-                        </button>
-                    </viewController>
-                </touchBarItem>
-                <touchBarSpacerItem identifier="NSTouchBarItemIdentifierFlexibleSpace" id="iLF-hR-1Xg"/>
-                <touchBarItem id="41W-wq-SD5">
-                    <viewController key="viewController" id="MU0-Lm-GeO">
-                        <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eVs-sL-uwj">
-                            <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="LUY-lD-BBt">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" usesAppearanceFont="YES"/>
-                            </buttonCell>
-                        </button>
-                    </viewController>
-                </touchBarItem>
-            </touchBarItems>
-            <point key="canvasLocation" x="83" y="442"/>
-        </touchBar>
     </objects>
 </document>

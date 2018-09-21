@@ -65,7 +65,6 @@
 		95B5E5F32150E974007AE2BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95B5E5F62150E974007AE2BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		95B5E5F82150E974007AE2BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		95B5E5F92150E974007AE2BD /* Edit_In.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Edit_In.entitlements; sourceTree = "<group>"; };
 		95B5E5FE2150E974007AE2BD /* Edit InTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Edit InTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B5E6022150E974007AE2BD /* Edit_InTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edit_InTests.swift; sourceTree = "<group>"; };
 		95B5E6042150E974007AE2BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,7 +77,6 @@
 		95B5E6262150E9C9007AE2BD /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
 		95B5E6292150E9C9007AE2BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PhotoEditingViewController.xib; sourceTree = "<group>"; };
 		95B5E62B2150E9C9007AE2BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		95B5E62C2150E9C9007AE2BD /* Edit_In___.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Edit_In___.entitlements"; sourceTree = "<group>"; };
 		95B5E6342150E9EC007AE2BD /* Edit In.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Edit In.entitlements"; sourceTree = "<group>"; };
 		95B5E6352150EA04007AE2BD /* Edit In....entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Edit In....entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,7 +147,6 @@
 				95B5E5F32150E974007AE2BD /* Assets.xcassets */,
 				95B5E5F52150E974007AE2BD /* Main.storyboard */,
 				95B5E5F82150E974007AE2BD /* Info.plist */,
-				95B5E5F92150E974007AE2BD /* Edit_In.entitlements */,
 			);
 			path = "Edit In";
 			sourceTree = "<group>";
@@ -188,7 +185,6 @@
 				95B5E6262150E9C9007AE2BD /* PhotoEditingViewController.swift */,
 				95B5E6282150E9C9007AE2BD /* PhotoEditingViewController.xib */,
 				95B5E62B2150E9C9007AE2BD /* Info.plist */,
-				95B5E62C2150E9C9007AE2BD /* Edit_In___.entitlements */,
 			);
 			path = "Edit In...";
 			sourceTree = "<group>";
@@ -280,7 +276,17 @@
 				TargetAttributes = {
 					95B5E5EB2150E973007AE2BD = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+							com.apple.HardenedRuntime = {
+								enabled = 1;
+							};
+							com.apple.Maps.Mac = {
+								enabled = 0;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -288,15 +294,30 @@
 					};
 					95B5E5FD2150E974007AE2BD = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = 95B5E5EB2150E973007AE2BD;
 					};
 					95B5E6082150E974007AE2BD = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						TestTargetID = 95B5E5EB2150E973007AE2BD;
 					};
 					95B5E61E2150E9C9007AE2BD = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 1;
+							};
+							com.apple.HardenedRuntime = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+							com.apple.Maps.Mac = {
+								enabled = 0;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -555,14 +576,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 469XEEBJ9N;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Edit In/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-In";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -575,14 +598,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 469XEEBJ9N;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Edit In/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-In";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -602,7 +627,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-InTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Edit In.app/Contents/MacOS/Edit In";
 			};
 			name = Debug;
@@ -623,7 +648,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-InTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Edit In.app/Contents/MacOS/Edit In";
 			};
 			name = Release;
@@ -643,7 +668,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-InUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = "Edit In";
 			};
 			name = Debug;
@@ -663,7 +688,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-InUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TEST_TARGET_NAME = "Edit In";
 			};
 			name = Release;
@@ -674,16 +699,18 @@
 				CODE_SIGN_ENTITLEMENTS = "Edit In.../Edit In....entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 469XEEBJ9N;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Edit In.../Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-In.Edit-In---";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -693,16 +720,18 @@
 				CODE_SIGN_ENTITLEMENTS = "Edit In.../Edit In....entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 469XEEBJ9N;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Edit In.../Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = "app.zxlee.Edit-In.Edit-In---";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
