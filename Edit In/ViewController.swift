@@ -6,19 +6,39 @@
 //  Copyright © 2018 Zhe Xian Lee. All rights reserved.
 //
 
+import Foundation
 import Cocoa
 import CoreServices
 
 class ViewController: NSViewController {
     
+
     
-    func prepareUserDefaults() {
-        let ud = UserDefaults(suiteName: "group.app.zxlee.Edit-In")!
-        
-    }
+//    func prepareUserDefaults() {
+//        let userDefaults = UserDefaults(suiteName: "group.app.zxlee.Edit-In")!
+//
+//        if (userDefaults.object(forKey: "USE_DEFAULT_CACHE_LOCATION") == nil) {
+//            userDefaults.set(true, forKey: "USE_DEFAULT_CACHE_LOCATION")
+//            userDefaults.set("", forKey: "CUSTOM_CACHE_LOCATION")
+//        }
+//
+//
+//        if (userDefaults.object(forKey: "PREFERRED_APPLICATION") == nil) {
+//            let testJPEGPath = Bundle.main.pathForImageResource("TestJPEG")!
+//            let testJPEFURL = URL(string: testJPEGPath)!
+//            let applicationURLs = LSCopyApplicationURLsForURL(testJPEFURL as CFURL, .editor)
+//        }
+//
+//        print(Bundle.main.pathForImageResource("TestJPEG"))
+//
+//        let defaultCacheLocation = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+//        print("default Cache Location \(defaultCacheLocation)")
+//        print("temp: \(FileManager.default.temporaryDirectory)")
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        prepareUserDefaults()
         
 //        let bundle = Bundle.main
 //        print(bundle.infoDictionary)
@@ -69,6 +89,12 @@ class ViewController: NSViewController {
             
         }
     }
+    
+//    func createTestJPEG() {
+//        let context = CGContext(data: nil, width: 1, height: 1, bitsPerComponent: 1, bytesPerRow: 8, space: CGColorSpaceCreateDeviceGray(), bitmapInfo: 0)
+//        NSImage(
+//        
+//    }
     
 }
 
