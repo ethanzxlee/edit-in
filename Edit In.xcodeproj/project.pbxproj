@@ -11,6 +11,7 @@
 		9531B2592155F3F20046D2D7 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9531B2582155F3F20046D2D7 /* UserDefaultsHelper.swift */; };
 		9531B25B21570D770046D2D7 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9531B2582155F3F20046D2D7 /* UserDefaultsHelper.swift */; };
 		9531B25C21570D7C0046D2D7 /* TestJPEG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9531B2552155EFE40046D2D7 /* TestJPEG.jpg */; };
+		9538DD052158D4AE0076D682 /* CenteringClipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538DD042158D4AE0076D682 /* CenteringClipView.swift */; };
 		95B5E5F02150E973007AE2BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B5E5EF2150E973007AE2BD /* AppDelegate.swift */; };
 		95B5E5F22150E973007AE2BD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B5E5F12150E973007AE2BD /* ViewController.swift */; };
 		95B5E5F42150E974007AE2BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95B5E5F32150E974007AE2BD /* Assets.xcassets */; };
@@ -65,6 +66,7 @@
 /* Begin PBXFileReference section */
 		9531B2552155EFE40046D2D7 /* TestJPEG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TestJPEG.jpg; sourceTree = "<group>"; };
 		9531B2582155F3F20046D2D7 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		9538DD042158D4AE0076D682 /* CenteringClipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteringClipView.swift; sourceTree = "<group>"; };
 		95B5E5EC2150E973007AE2BD /* Edit In.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Edit In.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B5E5EF2150E973007AE2BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95B5E5F12150E973007AE2BD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				95B5E6352150EA04007AE2BD /* Edit In....entitlements */,
 				95B5E62B2150E9C9007AE2BD /* Info.plist */,
 				95B5E6262150E9C9007AE2BD /* PhotoEditingViewController.swift */,
+				9538DD042158D4AE0076D682 /* CenteringClipView.swift */,
 			);
 			path = "Edit In...";
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			files = (
 				9531B25B21570D770046D2D7 /* UserDefaultsHelper.swift in Sources */,
 				95B5E6272150E9C9007AE2BD /* PhotoEditingViewController.swift in Sources */,
+				9538DD052158D4AE0076D682 /* CenteringClipView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

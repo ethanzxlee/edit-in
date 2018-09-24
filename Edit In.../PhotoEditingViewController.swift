@@ -16,16 +16,21 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     static let adjustmentDataFormatIdentifier = "app.zxlee.edit-in"
     static let adjustmentDataFormatVersion = "1.0.0"
     
+    @IBOutlet weak var imageView: NSImageView!
+    @IBOutlet weak var imageScrollView: NSScrollView!
+    @IBOutlet weak var clipView: CenteringClipView!
+    @IBOutlet weak var documentViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var documentViewHeightConstraint: NSLayoutConstraint!
     var input: PHContentEditingInput!
     var importURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UserDefaultsHelper.clearUserDefaults()
         UserDefaultsHelper.prepareUserDefaults()
     }
     
     // MARK: - PHContentEditingController
+    
     func canHandle(_ adjustmentData: PHAdjustmentData) -> Bool {
         return adjustmentData.formatIdentifier == PhotoEditingViewController.adjustmentDataFormatIdentifier &&
             adjustmentData.formatVersion == PhotoEditingViewController.adjustmentDataFormatVersion
@@ -33,6 +38,12 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     
     func startContentEditing(with contentEditingInput: PHContentEditingInput, placeholderImage: NSImage) {
         input = contentEditingInput
+        if let inputImage = input.displaySizeImage {
+            imageView.image = inputImage
+            documentViewWidthConstraint.constant = inputImage.size.width
+            documentViewHeightConstraint.constant = inputImage.size.height
+            imageScrollView.magnify(toFit: NSRect(x: 0, y: 0, width: inputImage.size.width, height: inputImage.size.height))
+        }
     }
     
     func finishContentEditing(completionHandler: @escaping ((PHContentEditingOutput?) -> Void)) {
@@ -41,7 +52,6 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
             let output = PHContentEditingOutput(contentEditingInput: self.input!)
             
             // copy content of importURL into output.renderedContentURL
-            
             completionHandler(output)
         }
     }
@@ -51,12 +61,25 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     }
     
     func cancelContentEditing() {
+        let fileManager = FileManager.default
+        
+        do {
+        for filePath in try fileManager.contentsOfDirectory(atPath: cacheURL.path) {
+            do {
+                try fileManager.removeItem(atPath: filePath)
+            } catch {
+                print("Failed to remove: \(error)")
+            }
+        }
+        } catch {
+            print("could not list cache dir")
+        }
     }
     
     // MARK: - IBActions
     
     @IBAction func handleOpenImage(_ sender: Any) {
-        if let fullSizeImageURL = input.fullSizeImageURL {
+        if input.fullSizeImageURL != nil {
             do {
                 try copyImageToCache()
                 openImageExternally()
