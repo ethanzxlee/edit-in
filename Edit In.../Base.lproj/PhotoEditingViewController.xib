@@ -8,11 +8,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PhotoEditingViewController" customModule="Edit_In___" customModuleProvider="target">
             <connections>
+                <outlet property="applicationsPopUpButton" destination="mci-he-IPz" id="WCZ-iR-qR4"/>
                 <outlet property="clipView" destination="KfE-OU-a0n" id="rT8-Cp-hRn"/>
+                <outlet property="compareButton" destination="Sqz-5I-xjI" id="Ehl-EB-aTJ"/>
                 <outlet property="documentViewHeightConstraint" destination="Jop-eC-s30" id="qhV-9m-vCU"/>
                 <outlet property="documentViewWidthConstraint" destination="8gY-Qx-ACP" id="KKF-MZ-jGJ"/>
                 <outlet property="imageScrollView" destination="xFV-ed-3rP" id="w1H-tJ-xiT"/>
                 <outlet property="imageView" destination="d58-yx-aS9" id="NnP-Y8-ysH"/>
+                <outlet property="importImageButton" destination="XJX-Kp-mLD" id="oR3-5X-3Ia"/>
+                <outlet property="importedImageTextField" destination="ELf-1Z-NiF" id="K9I-1l-LdR"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -123,6 +127,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="handleImportEditedImage:" target="-2" id="QOn-D9-Lsl"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
