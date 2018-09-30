@@ -6,7 +6,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.app.zxlee.Edit-In</string>
+		<string>group.app.zxlee.EditIn</string>
 	</array>
 	<key>com.apple.security.files.user-selected.read-write</key>
 	<true/>

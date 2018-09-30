@@ -20,10 +20,10 @@ class UserDefaultsHelper {
         case preferredApplicationPath = "PREFERRED_APPLICATION_PATH"
     }
     
-    static var imageEditorApplicationURLs: [URL] {
-        let testJPEGPath = Bundle.main.pathForImageResource(testJPEGName)!
-        let testJPEFURL = URL(fileURLWithPath: testJPEGPath)
-        let applicationURLs = LSCopyApplicationURLsForURL(testJPEFURL as CFURL, .editor)!.takeRetainedValue() as Array
+    static func editorApplicationURLs(for imageAtPath: String? = nil) -> [URL] {
+        let imagePath = imageAtPath ?? Bundle.main.pathForImageResource(testJPEGName)!
+        let imageURL = URL(fileURLWithPath: imagePath)
+        let applicationURLs = LSCopyApplicationURLsForURL(imageURL as CFURL, .editor)!.takeRetainedValue() as Array
         let urls = applicationURLs.map { (url) -> URL in
             url as! URL
         }
@@ -53,11 +53,13 @@ class UserDefaultsHelper {
             userDefaults.set("", forKey: Keys.customCachePath.rawValue)
         }
         
-        if (userDefaults.object(forKey: Keys.preferredApplicationPath.rawValue) == nil) {
+        let preferredApplicationPath = userDefaults.object(forKey: Keys.preferredApplicationPath.rawValue) as? String
+        
+        if (preferredApplicationPath == nil || !FileManager.default.fileExists(atPath: preferredApplicationPath ?? "")) {
             // Set Photoshop as preferred application if found,
             // Otherwise set Preview as preferred application
             let photoshopRegex = try! NSRegularExpression(pattern: photoshopPattern, options: .caseInsensitive)
-            let photoshopURLs = imageEditorApplicationURLs.filter { (url) -> Bool in
+            let photoshopURLs = editorApplicationURLs().filter { (url) -> Bool in
                 let urlString = url.path
                 let matches = photoshopRegex.matches(in: urlString, options: [], range: NSRange(location: 0, length: urlString.count))
                 return matches.count > 0

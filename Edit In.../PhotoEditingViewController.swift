@@ -23,8 +23,11 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
         let customCachePath = userDefaults.string(forKey: UserDefaultsHelper.Keys.customCachePath.rawValue) ?? ""
         let defaultCacheURL = try! fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         
+        let defaultEditCacheURL = defaultCacheURL.appendingPathComponent("edited")
+        try! fileManager.createDirectory(at: defaultEditCacheURL, withIntermediateDirectories: true, attributes: nil)
+        
         if useDefaultCachePath && customCachePath == "" {
-            return defaultCacheURL
+            return defaultEditCacheURL
         } else {
             var isDirectory = ObjCBool(true)
             let exists = fileManager.fileExists(atPath: customCachePath, isDirectory: &isDirectory)
@@ -35,7 +38,7 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
                     try fileManager.createDirectory(at: customCacheURL, withIntermediateDirectories: true, attributes: nil)
                 } catch {
                     os_log("Could not open the custom cache direcory, will be using the default cache directory", log: OSLog.default, type: .info)
-                    return defaultCacheURL
+                    return defaultEditCacheURL
                 }
             }
             return customCacheURL
@@ -43,19 +46,28 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     }()
     
     var cachedOriginalImageURL: URL? {
-        if let filename = input.fullSizeImageURL?.lastPathComponent {
+        if let filename = editingInput.fullSizeImageURL?.lastPathComponent {
             return cacheDirectoryURL.appendingPathComponent(filename)
         }
         os_log("Tried to get cachedOriginalImageURL when input is nil", log: OSLog.default, type: .info)
         return nil
     }
     
-    var input: PHContentEditingInput!
-    var importURL: URL?
+    var editingInput: PHContentEditingInput!
+    var editedImageURL: URL? {
+        didSet {
+            if editedImageURL != nil {
+                importedImageTextField.stringValue = editedImageURL!.path
+            }
+        }
+    }
+    var editedImage: NSImage?
+    var importEditedImagePanel: NSOpenPanel?
+    var editorAppURLs: [URL] = []
     
     @IBOutlet weak var importedImageTextField: NSTextField!
     @IBOutlet weak var importImageButton: NSButton!
-    @IBOutlet weak var applicationsPopUpButton: NSPopUpButton!
+    @IBOutlet weak var editorAppPopUpButton: NSPopUpButton!
     @IBOutlet weak var compareButton: NSButton!
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var imageScrollView: NSScrollView!
@@ -76,12 +88,12 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     }
     
     func startContentEditing(with contentEditingInput: PHContentEditingInput, placeholderImage: NSImage) {
-        input = contentEditingInput
-        if let inputImage = input.displaySizeImage {
+        editingInput = contentEditingInput
+        populateEditorAppMenu()
+        
+        if let inputImage = editingInput.displaySizeImage {
             imageView.image = inputImage
-            documentViewWidthConstraint.constant = inputImage.size.width
-            documentViewHeightConstraint.constant = inputImage.size.height
-            imageScrollView.magnify(toFit: NSRect(x: 0, y: 0, width: inputImage.size.width, height: inputImage.size.height))
+            showImage(inputImage)
         } else {
             imageView.image = nil
         }
@@ -90,7 +102,7 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     func finishContentEditing(completionHandler: @escaping ((PHContentEditingOutput?) -> Void)) {
         // TODO: Display saving
         DispatchQueue.global().async {
-            let output = PHContentEditingOutput(contentEditingInput: self.input!)
+            let output = PHContentEditingOutput(contentEditingInput: self.editingInput!)
             
             // copy content of importURL into output.renderedContentURL
             completionHandler(output)
@@ -98,7 +110,7 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     }
     
     var shouldShowCancelConfirmation: Bool {
-        return importURL != nil
+        return editedImageURL != nil && editedImage != nil
     }
     
     func cancelContentEditing() {
@@ -120,7 +132,7 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     // MARK: - IBActions
     
     @IBAction func handleOpenImage(_ sender: Any) {
-        if input.fullSizeImageURL != nil {
+        if editingInput.fullSizeImageURL != nil {
             do {
                 try copyImageToCache()
                 openImageExternally()
@@ -148,7 +160,7 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
         
         let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: cachedOriginalImageURL.path) {
-            try FileManager.default.copyItem(at: input.fullSizeImageURL!, to: cachedOriginalImageURL)
+            try FileManager.default.copyItem(at: editingInput.fullSizeImageURL!, to: cachedOriginalImageURL)
         }
     }
     
@@ -168,9 +180,71 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     }
     
     func importEditedPhoto() {
-        // Show OpenFilePanel
-        // get the url into importURL
+        importEditedImagePanel?.close()
         
+        importEditedImagePanel = NSOpenPanel()
+        importEditedImagePanel!.allowsMultipleSelection = false
+        importEditedImagePanel!.canChooseDirectories = false
+        importEditedImagePanel!.canChooseFiles = true
+        importEditedImagePanel?.showsHiddenFiles = true
+        importEditedImagePanel!.allowedFileTypes = ["jpg","jpeg"]
+        importEditedImagePanel!.directoryURL = URL(fileURLWithPath: cacheDirectoryURL.path)
+        print(cacheDirectoryURL)
+        importEditedImagePanel!.beginSheetModal(for: NSApplication.shared.windows.first!) { (response) in
+            if response == .OK {
+                guard let importEditedImagePanel = self.importEditedImagePanel else {
+                    return
+                }
+                guard let url = importEditedImagePanel.url else {
+                    return
+                }
+                
+                do {
+                    let selectedFileType = try NSWorkspace.shared.type(ofFile: url.path)
+                    if selectedFileType == kUTTypeJPEG as String {
+                        self.editedImage = NSImage(contentsOf: url)
+                        self.editedImageURL = url
+                        
+                        DispatchQueue.main.async {
+                            self.imageView.image = self.editedImage
+                            self.showImage(self.editedImage)
+                        }
+                    }
+                } catch {
+                    os_log("Could not determine the type of the file selected", log: OSLog.default, type: .info)
+                }
+            }
+        }
     }
+    
+    func showImage(_ image: NSImage?) {
+        if let image = image {
+            imageView.image = image
+            documentViewWidthConstraint.constant = image.size.width
+            documentViewHeightConstraint.constant = image.size.height
+            imageScrollView.magnify(toFit: NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        }
+    }
+    
+    func populateEditorAppMenu() {
+        editorAppURLs = UserDefaultsHelper.editorApplicationURLs(for: editingInput.fullSizeImageURL?.path)
+        
+        let userDefaults = UserDefaultsHelper.groupUserDefaults
+        let preferredApplicationPath = userDefaults.string(forKey: UserDefaultsHelper.Keys.preferredApplicationPath.rawValue)!
+        let editorMenu = NSMenu()
+        editorMenu.items = editorAppURLs.map { (url) -> NSMenuItem in
+            let title = url.deletingPathExtension().lastPathComponent
+            let menuItem = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+            if url.path == preferredApplicationPath {
+                menuItem.state = .on
+            }
+            return menuItem
+        }
+        
+        editorAppPopUpButton.menu = editorMenu
+        
+       
+    }
+    
     
 }

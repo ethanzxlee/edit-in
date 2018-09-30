@@ -8,11 +8,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PhotoEditingViewController" customModule="Edit_In___" customModuleProvider="target">
             <connections>
-                <outlet property="applicationsPopUpButton" destination="mci-he-IPz" id="WCZ-iR-qR4"/>
                 <outlet property="clipView" destination="KfE-OU-a0n" id="rT8-Cp-hRn"/>
                 <outlet property="compareButton" destination="Sqz-5I-xjI" id="Ehl-EB-aTJ"/>
                 <outlet property="documentViewHeightConstraint" destination="Jop-eC-s30" id="qhV-9m-vCU"/>
                 <outlet property="documentViewWidthConstraint" destination="8gY-Qx-ACP" id="KKF-MZ-jGJ"/>
+                <outlet property="editorAppPopUpButton" destination="mci-he-IPz" id="WCZ-iR-qR4"/>
                 <outlet property="imageScrollView" destination="xFV-ed-3rP" id="w1H-tJ-xiT"/>
                 <outlet property="imageView" destination="d58-yx-aS9" id="NnP-Y8-ysH"/>
                 <outlet property="importImageButton" destination="XJX-Kp-mLD" id="oR3-5X-3Ia"/>
@@ -63,10 +63,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sqz-5I-xjI">
-                    <rect key="frame" x="454" y="432" width="212" height="32"/>
+                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Sqz-5I-xjI">
+                    <rect key="frame" x="404" y="432" width="262" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="Zc7-ht-gr2"/>
+                        <constraint firstAttribute="width" constant="250" id="Zc7-ht-gr2"/>
                     </constraints>
                     <buttonCell key="cell" type="push" title="Compare" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SiL-Ix-wGc">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -74,7 +74,7 @@
                     </buttonCell>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H2d-w9-KZl">
-                    <rect key="frame" x="458" y="243" width="204" height="17"/>
+                    <rect key="frame" x="408" y="243" width="254" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Edited Image" id="nve-RE-J3e">
                         <font key="font" metaFont="systemSemibold" size="13"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -82,7 +82,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LAE-ou-ope">
-                    <rect key="frame" x="458" y="372" width="204" height="17"/>
+                    <rect key="frame" x="408" y="372" width="254" height="17"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Open With" id="fz3-om-zN0">
                         <font key="font" metaFont="systemSemibold" size="13"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -90,21 +90,15 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mci-he-IPz">
-                    <rect key="frame" x="458" y="338" width="205" height="25"/>
-                    <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="b4e-lg-4ok" id="trI-Dt-XGQ">
+                    <rect key="frame" x="408" y="338" width="255" height="25"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="trI-Dt-XGQ">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
-                        <menu key="menu" id="8mU-aW-i4m">
-                            <items>
-                                <menuItem title="Item 1" state="on" id="b4e-lg-4ok"/>
-                                <menuItem title="Item 2" id="lNJ-R4-5wM"/>
-                                <menuItem title="Item 3" id="cRL-4G-x75"/>
-                            </items>
-                        </menu>
+                        <menu key="menu" id="8mU-aW-i4m"/>
                     </popUpButtonCell>
                 </popUpButton>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="04M-bY-OFO">
-                    <rect key="frame" x="454" y="303" width="212" height="32"/>
+                    <rect key="frame" x="404" y="303" width="262" height="32"/>
                     <buttonCell key="cell" type="push" title="Open Image" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mnm-v1-WLN">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -114,16 +108,16 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ELf-1Z-NiF">
-                    <rect key="frame" x="458" y="216" width="204" height="17"/>
-                    <textFieldCell key="cell" lineBreakMode="clipping" title="/Users/example.jpg" id="7Fe-TN-5ED">
+                    <rect key="frame" x="408" y="216" width="254" height="17"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" id="7Fe-TN-5ED">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XJX-Kp-mLD">
-                    <rect key="frame" x="454" y="178" width="212" height="32"/>
-                    <buttonCell key="cell" type="push" title="Import" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="o4I-5l-goT">
+                    <rect key="frame" x="404" y="178" width="262" height="32"/>
+                    <buttonCell key="cell" type="push" title="Import Image..." bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="o4I-5l-goT">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
