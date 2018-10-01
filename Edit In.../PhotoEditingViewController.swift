@@ -23,10 +23,10 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
         let customCachePath = userDefaults.string(forKey: UserDefaultsHelper.Keys.customCachePath.rawValue) ?? ""
         let defaultCacheURL = try! fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         
-        let defaultEditCacheURL = defaultCacheURL.appendingPathComponent("edited")
+        let defaultEditCacheURL = defaultCacheURL.appendingPathComponent("edits")
         try! fileManager.createDirectory(at: defaultEditCacheURL, withIntermediateDirectories: true, attributes: nil)
         
-        if useDefaultCachePath && customCachePath == "" {
+        if useDefaultCachePath || customCachePath == "" {
             return defaultEditCacheURL
         } else {
             var isDirectory = ObjCBool(true)
@@ -229,8 +229,7 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     func populateEditorAppMenu() {
         editorAppURLs = UserDefaultsHelper.editorApplicationURLs(for: editingInput.fullSizeImageURL?.path)
         
-        let userDefaults = UserDefaultsHelper.groupUserDefaults
-        let preferredApplicationPath = userDefaults.string(forKey: UserDefaultsHelper.Keys.preferredApplicationPath.rawValue)!
+        let preferredApplicationPath = UserDefaultsHelper.groupUserDefaults.string(forKey: UserDefaultsHelper.Keys.preferredApplicationPath.rawValue)!
         let editorMenu = NSMenu()
         editorMenu.items = editorAppURLs.map { (url) -> NSMenuItem in
             let title = url.deletingPathExtension().lastPathComponent
@@ -242,9 +241,6 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
         }
         
         editorAppPopUpButton.menu = editorMenu
-        
-       
     }
-    
     
 }

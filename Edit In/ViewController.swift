@@ -11,90 +11,108 @@ import Cocoa
 import CoreServices
 
 class ViewController: NSViewController {
-    
 
+    @IBOutlet weak var selectCacheFolderButton: NSButton!
+    @IBOutlet weak var customCacheLocationButton: NSButton!
+    @IBOutlet weak var defaultCacheLocationButton: NSButton!
+    @IBOutlet weak var customCacheLocationTextField: NSTextField!
+    @IBOutlet weak var preferredAppPopUpButton: NSPopUpButton!
     
-//    func prepareUserDefaults() {
-//        let userDefaults = UserDefaults(suiteName: "group.app.zxlee.Edit-In")!
-//
-//        if (userDefaults.object(forKey: "USE_DEFAULT_CACHE_LOCATION") == nil) {
-//            userDefaults.set(true, forKey: "USE_DEFAULT_CACHE_LOCATION")
-//            userDefaults.set("", forKey: "CUSTOM_CACHE_LOCATION")
-//        }
-//
-//
-//        if (userDefaults.object(forKey: "PREFERRED_APPLICATION") == nil) {
-//            let testJPEGPath = Bundle.main.pathForImageResource("TestJPEG")!
-//            let testJPEFURL = URL(string: testJPEGPath)!
-//            let applicationURLs = LSCopyApplicationURLsForURL(testJPEFURL as CFURL, .editor)
-//        }
-//
-//        print(Bundle.main.pathForImageResource("TestJPEG"))
-//
-//        let defaultCacheLocation = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-//        print("default Cache Location \(defaultCacheLocation)")
-//        print("temp: \(FileManager.default.temporaryDirectory)")
-//    }
-
+    var editorAppURLs: [URL] = []
+    let groupUserDefaults = UserDefaultsHelper.groupUserDefaults
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        prepareUserDefaults()
-        
-//        let bundle = Bundle.main
-//        print(bundle.infoDictionary)
-        
-//        let ud = UserDefaults.standard
-//        ud.addSuite(named: "app.zxlee.Edit-In.Edit-In---")
-//        print(ud.object(forKey: "emotion"))
-//        ud.set("happy", forKey: "emotion")
-//        print(ud.object(forKey: "emotion"))
-        
-//        let ud = UserDefaults(suiteName: "group.app.zxlee.Edit-In")!
-//        print(ud.object(forKey: "emotion"))
-//        ud.set("happy", forKey: "emotion")
-//        print(ud.object(forKey: "emotion"))
-   
-        
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
+        UserDefaultsHelper.prepareUserDefaults()
+        populateCacheLocationControls()
+        populateEditorAppMenu()
     }
 
     @IBAction func setCacheLocationType(_ sender: Any) {
-    }
-    
-    
-    @IBAction func selectFile(_ sender: Any) {
-        let dialog = NSOpenPanel()
-        if (dialog.runModal() == .OK) {
-            let fileURL = dialog.url! as CFURL
-            
-        
-            let applicationURLs = LSCopyApplicationURLsForURL(fileURL, .editor)
-            
-            let apps = applicationURLs?.takeRetainedValue() as? Array<NSURL>
-          
-            let workspace = NSWorkspace.shared
-            for app in apps! {
-                
-                    let icon = workspace.icon(forFile: app.absoluteString!)
-                
-                    print(icon)
+        if sender as? NSButton == defaultCacheLocationButton {
+            groupUserDefaults.set(true, forKey: UserDefaultsHelper.Keys.useDefaultCachePath.rawValue)
+            groupUserDefaults.synchronize()
+            populateCacheLocationControls()
+        } else if sender as? NSButton == customCacheLocationButton {
+            if groupUserDefaults.string(forKey: UserDefaultsHelper.Keys.customCachePath.rawValue) == "" {
+                let fileManager = FileManager.default
+                let userDirectoryURL = try! fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+                let cacheDirectoryURL = userDirectoryURL.appendingPathComponent("EditInCache")
+                groupUserDefaults.set(cacheDirectoryURL.path, forKey: UserDefaultsHelper.Keys.customCachePath.rawValue)
             }
-            
-            
-            
+            groupUserDefaults.set(false, forKey: UserDefaultsHelper.Keys.useDefaultCachePath.rawValue)
+            groupUserDefaults.synchronize()
+            populateCacheLocationControls()
         }
     }
     
-//    func createTestJPEG() {
-//        let context = CGContext(data: nil, width: 1, height: 1, bitsPerComponent: 1, bytesPerRow: 8, space: CGColorSpaceCreateDeviceGray(), bitmapInfo: 0)
-//        NSImage(
-//        
-//    }
+    @IBAction func selectCacheLocation(_ sender: Any) {
+        let openPanel = NSOpenPanel()
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.directoryURL = URL(fileURLWithPath: customCacheLocationTextField.stringValue, isDirectory: true)
+        openPanel.beginSheetModal(for: NSApplication.shared.mainWindow!) { (response) in
+            if response == .OK {
+                guard let url = openPanel.url else {
+                    return
+                }
+                
+                self.customCacheLocationTextField.stringValue = url.path
+                self.groupUserDefaults.set(url.path, forKey: UserDefaultsHelper.Keys.customCachePath.rawValue)
+                self.groupUserDefaults.synchronize()
+            }
+        }
+    }
     
+    @IBAction func preferredAppChanged(_ sender: Any) {
+        guard let selectItemTitle = preferredAppPopUpButton.selectedItem?.title else {
+            return
+        }
+        
+        let selectedAppURL = editorAppURLs.first { (url) -> Bool in
+            url.deletingPathExtension().lastPathComponent == selectItemTitle
+        }
+        
+        if selectedAppURL != nil {
+            groupUserDefaults.set(selectedAppURL!.path, forKey: UserDefaultsHelper.Keys.preferredApplicationPath.rawValue)
+            groupUserDefaults.synchronize()
+        }
+    }
+    
+    func populateCacheLocationControls() {
+        if groupUserDefaults.bool(forKey: UserDefaultsHelper.Keys.useDefaultCachePath.rawValue) {
+            defaultCacheLocationButton.state = .on
+            customCacheLocationButton.state = .off
+            customCacheLocationTextField.isEnabled = false
+            selectCacheFolderButton.isEnabled = false
+            customCacheLocationTextField.stringValue = ""
+        } else {
+            defaultCacheLocationButton.state = .off
+            customCacheLocationButton.state = .on
+            customCacheLocationTextField.isEnabled = true
+            selectCacheFolderButton.isEnabled = true
+            customCacheLocationTextField.stringValue = groupUserDefaults.string(forKey: UserDefaultsHelper.Keys.customCachePath.rawValue) ?? ""
+        }
+    }
+    
+    func populateEditorAppMenu() {
+        editorAppURLs = UserDefaultsHelper.editorApplicationURLs()
+        
+        let userDefaults = UserDefaultsHelper.groupUserDefaults
+        let preferredApplicationPath = userDefaults.string(forKey: UserDefaultsHelper.Keys.preferredApplicationPath.rawValue)
+        
+        let editorMenu = NSMenu()
+        editorMenu.items = editorAppURLs.map { (url) -> NSMenuItem in
+            let title = url.deletingPathExtension().lastPathComponent
+            let menuItem = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+            if url.path == preferredApplicationPath {
+                menuItem.state = .on
+            }
+            return menuItem
+        }
+        
+        preferredAppPopUpButton.menu = editorMenu
+    }
 }
 

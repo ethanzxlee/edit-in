@@ -118,12 +118,12 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Edit In" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
+                    <window key="window" title="Edit In" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
                         <rect key="contentRect" x="479" y="287" width="600" height="400"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="600" height="400"/>
-                        <value key="maxSize" type="size" width="600" height="400"/>
+                        <value key="maxSize" type="size" width="6000" height="400"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -165,7 +165,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="setCacheLocationType:" target="XfG-lQ-9wD" id="hFj-zP-3u4"/>
+                                            <action selector="setCacheLocationType:" target="XfG-lQ-9wD" id="Lgf-k3-kPA"/>
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6qM-Qf-rcO">
@@ -173,25 +173,28 @@
                                         <buttonCell key="cell" type="radio" title="Default" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Noc-n0-0bz">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
-                                            <connections>
-                                                <action selector="setCacheLocationType:" target="XfG-lQ-9wD" id="gmO-h9-vZG"/>
-                                            </connections>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="setCacheLocationType:" target="XfG-lQ-9wD" id="SEh-xC-JJF"/>
+                                        </connections>
                                     </button>
                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1hK-B7-dcK">
                                         <rect key="frame" x="20" y="33" width="353" height="22"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Wqs-fk-FTe">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="Wqs-fk-FTe">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j2n-OK-LoC">
-                                        <rect key="frame" x="14" y="-3" width="85" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Browse" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0bw-Jk-35h">
+                                        <rect key="frame" x="14" y="-3" width="117" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Select folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0bw-Jk-35h">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="selectCacheLocation:" target="XfG-lQ-9wD" id="r6m-JN-qNK"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -224,8 +227,11 @@
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="xBj-gJ-bgZ"/>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="preferredAppChanged:" target="XfG-lQ-9wD" id="yQX-pD-3u9"/>
+                                </connections>
                             </popUpButton>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TEv-ig-4h8">
+                            <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TEv-ig-4h8">
                                 <rect key="frame" x="185" y="49" width="373" height="18"/>
                                 <buttonCell key="cell" type="check" title="Open photo automatically when the extension is loaded" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Urz-bu-inw">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -255,6 +261,13 @@
                             <constraint firstItem="2UR-8o-Eln" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="40" id="ze1-Vq-plx"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="customCacheLocationButton" destination="XgD-fJ-nwv" id="Rje-Rd-4JZ"/>
+                        <outlet property="customCacheLocationTextField" destination="1hK-B7-dcK" id="uS0-Rp-W03"/>
+                        <outlet property="defaultCacheLocationButton" destination="6qM-Qf-rcO" id="58g-Ow-Sbv"/>
+                        <outlet property="preferredAppPopUpButton" destination="NO3-Z9-NWc" id="Dxe-bj-UPs"/>
+                        <outlet property="selectCacheFolderButton" destination="j2n-OK-LoC" id="oi2-ms-5GO"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

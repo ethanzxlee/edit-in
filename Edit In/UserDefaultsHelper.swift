@@ -9,7 +9,7 @@
 import Foundation
 
 class UserDefaultsHelper {
-    static let suiteName = "group.app.zxlee.Edit-In"
+    static let suiteName = "group.app.zxlee.EditIn"
     static let previewPath = "/Applications/Preview.app/"
     static let testJPEGName = "TestJPEG"
     static let photoshopPattern = "Adobe Photoshop.*\\.app"

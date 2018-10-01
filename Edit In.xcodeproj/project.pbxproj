@@ -306,6 +306,9 @@
 							com.apple.Maps.Mac = {
 								enabled = 0;
 							};
+							com.apple.Push = {
+								enabled = 0;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
