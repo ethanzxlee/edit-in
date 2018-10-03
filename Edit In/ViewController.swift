@@ -52,15 +52,24 @@ class ViewController: NSViewController {
         openPanel.canChooseDirectories = true
         openPanel.allowsMultipleSelection = false
         openPanel.directoryURL = URL(fileURLWithPath: customCacheLocationTextField.stringValue, isDirectory: true)
-        openPanel.beginSheetModal(for: NSApplication.shared.mainWindow!) { (response) in
+        openPanel.begin { (response) in
             if response == .OK {
                 guard let url = openPanel.url else {
                     return
                 }
-                
-                self.customCacheLocationTextField.stringValue = url.path
-                self.groupUserDefaults.set(url.path, forKey: UserDefaultsHelper.Keys.customCachePath.rawValue)
-                self.groupUserDefaults.synchronize()
+                do {
+                    let testFileURL = url.appendingPathComponent("test")
+                    if FileManager.default.createFile(atPath: testFileURL.path, contents: nil, attributes: nil) {
+                        try FileManager.default.removeItem(atPath: testFileURL.path)
+                        self.customCacheLocationTextField.stringValue = url.path
+                        self.groupUserDefaults.set(url.path, forKey: UserDefaultsHelper.Keys.customCachePath.rawValue)
+                        self.groupUserDefaults.synchronize()
+                    } else {
+                        print("could not create")
+                    }
+                } catch {
+                    print(error)
+                }
             }
         }
     }

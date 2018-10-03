@@ -14,7 +14,7 @@ import os
 class PhotoEditingViewController: NSViewController, PHContentEditingController {
     
     static let adjustmentDataFormatIdentifier = "app.zxlee.edit-in"
-    static let adjustmentDataFormatVersion = "1.0.0"
+    static let adjustmentDataFormatVersion = "0.0.1"
     
     let cacheDirectoryURL: URL = {
         let fileManager = FileManager.default
@@ -33,7 +33,7 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
             let exists = fileManager.fileExists(atPath: customCachePath, isDirectory: &isDirectory)
             let customCacheURL = URL(fileURLWithPath: customCachePath)
             
-            if !exists && isDirectory.boolValue {
+            if !exists {
                 do {
                     try fileManager.createDirectory(at: customCacheURL, withIntermediateDirectories: true, attributes: nil)
                 } catch {
@@ -100,12 +100,21 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     }
     
     func finishContentEditing(completionHandler: @escaping ((PHContentEditingOutput?) -> Void)) {
-        // TODO: Display saving
         DispatchQueue.global().async {
-            let output = PHContentEditingOutput(contentEditingInput: self.editingInput!)
+            guard let editingInput = self.editingInput, let editedImageURL = self.editedImageURL  else {
+                return
+            }
             
-            // copy content of importURL into output.renderedContentURL
-            completionHandler(output)
+            if FileManager.default.fileExists(atPath: editedImageURL.path) {
+                do {
+                    let output = PHContentEditingOutput(contentEditingInput: editingInput)
+                    output.adjustmentData = PHAdjustmentData(formatIdentifier: PhotoEditingViewController.adjustmentDataFormatIdentifier, formatVersion: PhotoEditingViewController.adjustmentDataFormatVersion, data: Data())
+                    try FileManager.default.copyItem(at: editedImageURL, to: output.renderedContentURL)
+                    completionHandler(output)
+                } catch {
+                    print(error)
+                }
+            }
         }
     }
     
@@ -134,6 +143,7 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     @IBAction func handleOpenImage(_ sender: Any) {
         if editingInput.fullSizeImageURL != nil {
             do {
+                let _ = requestPermissionToWrite(atURL: cacheDirectoryURL)
                 try copyImageToCache()
                 openImageExternally()
             } catch {
@@ -160,8 +170,27 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
         
         let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: cachedOriginalImageURL.path) {
-            try FileManager.default.copyItem(at: editingInput.fullSizeImageURL!, to: cachedOriginalImageURL)
+            try fileManager.copyItem(at: editingInput.fullSizeImageURL!, to: cachedOriginalImageURL)
         }
+    }
+
+    func requestPermissionToWrite(atURL url: URL) -> Bool {
+        let filename = "temp"
+        let fileURL = url.appendingPathComponent(filename)
+        if !FileManager.default.createFile(atPath: fileURL.path, contents: nil, attributes: nil) {
+            let panel = NSOpenPanel()
+            panel.allowsMultipleSelection = false
+            panel.canChooseDirectories = true
+            panel.canChooseFiles = false
+            panel.directoryURL = url
+            panel.runModal()
+            print(panel.urls)
+            let canCreate = FileManager.default.createFile(atPath: fileURL.path, contents: nil, attributes: nil)
+            try? FileManager.default.removeItem(at: fileURL)
+            return canCreate
+        }
+        try? FileManager.default.removeItem(at: fileURL)
+        return true
     }
     
     func openImageExternally() {
@@ -169,10 +198,16 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
             os_log("Could not get cachedOriginalImageURL when opening image", log: OSLog.default, type: .info)
             return
         }
+        var preferredApplicationPath = editorAppURLs.first { (url) -> Bool in
+            url.deletingPathExtension().lastPathComponent == editorAppPopUpButton.selectedItem?.title
+        }?.path
         
-        let userDefaults = UserDefaultsHelper.groupUserDefaults
-        let preferredApplicationPath = userDefaults.string(forKey: UserDefaultsHelper.Keys.preferredApplicationPath.rawValue)!
-        let openSuccess = NSWorkspace.shared.openFile(cachedOriginalImageURL.path, withApplication: URL(fileURLWithPath: preferredApplicationPath).path)
+        if preferredApplicationPath == nil {
+            let userDefaults = UserDefaultsHelper.groupUserDefaults
+            preferredApplicationPath = userDefaults.string(forKey: UserDefaultsHelper.Keys.preferredApplicationPath.rawValue)!
+        }
+        
+        let openSuccess = NSWorkspace.shared.openFile(cachedOriginalImageURL.path, withApplication: URL(fileURLWithPath: preferredApplicationPath!).path)
         if !openSuccess {
             // TODO: display error message
             os_log("Could not open image with selected application", log: .default, type: .error)
@@ -181,15 +216,12 @@ class PhotoEditingViewController: NSViewController, PHContentEditingController {
     
     func importEditedPhoto() {
         importEditedImagePanel?.close()
-        
         importEditedImagePanel = NSOpenPanel()
         importEditedImagePanel!.allowsMultipleSelection = false
-        importEditedImagePanel!.canChooseDirectories = false
         importEditedImagePanel!.canChooseFiles = true
-        importEditedImagePanel?.showsHiddenFiles = true
+        importEditedImagePanel?.canChooseDirectories = false
         importEditedImagePanel!.allowedFileTypes = ["jpg","jpeg"]
         importEditedImagePanel!.directoryURL = URL(fileURLWithPath: cacheDirectoryURL.path)
-        print(cacheDirectoryURL)
         importEditedImagePanel!.beginSheetModal(for: NSApplication.shared.windows.first!) { (response) in
             if response == .OK {
                 guard let importEditedImagePanel = self.importEditedImagePanel else {
