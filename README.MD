@@ -2,8 +2,8 @@
 
 Edit In is a macOS Photos Editing extension that allows you to edit your photos in other applications like Photoshop.
 
-<img width="30%" src="Screenshots/1.jpg" alt="Screenshot 1"/>
-<img width="40%" src="Screenshots/2.jpg" alt="Screenshot 2"/>
+<img height="150px" src="Screenshots/1.jpg" alt="Screenshot 1"/>
+<img height="300px" src="Screenshots/2.jpg" alt="Screenshot 2"/>
 
 
 ## Why I wrote this?
@@ -18,7 +18,7 @@ reading the Developer Documentation and then wrote this simple application.
 This is my very first macOS app, so, things might be broken. Let me know in case you found anything broken.
 
 ## How can I use this?
-1. Download the zip file.
+1. Download the [zip](https://github.com/zxlee618/edit-in/releases/download/0.0.1/Edit.In.app.zip) file.
 2. Drag it in to `/Application`.
 3. Open it. Change the cache location if you want. (Preferrably on the disk where your photo library is located)
 4. In `System Preferences` -> `Extensions` -> `Photo Editing`, make sure "Edit In..." is enabled.
