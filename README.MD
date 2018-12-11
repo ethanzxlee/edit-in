@@ -2,8 +2,8 @@
 
 Edit In is a macOS Photos Editing extension that allows you to edit your photos in other applications like Photoshop.
 
-<img height="150px" src="Screenshots/1.jpg" alt="Screenshot 1"/>
-<img height="300px" src="Screenshots/2.jpg" alt="Screenshot 2"/>
+<img height="250px" src="Screenshots/1.jpg" alt="Screenshot 1"/>
+<img height="450px" src="Screenshots/2.jpg" alt="Screenshot 2"/>
 
 
 ## Why I wrote this?
